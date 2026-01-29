@@ -374,10 +374,18 @@ ul.check-list li::before {
         -webkit-overflow-scrolling: touch;
     }
     
-    /* Centralizar especificamente o slide final no mobile */
+    /* CORREÇÃO DAS PÁGINAS FINAIS (11 e 12) */
     .slide#slide12, .slide#slide11 {
-        justify-content: center;
+        justify-content: center; /* Tenta centralizar */
         text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Centralização segura com margens automáticas para conteúdo interno */
+    .slide#slide11 > div, .slide#slide12 > div {
+        margin-top: auto;
+        margin-bottom: auto;
     }
 
     /* Tipografia Mobile */
@@ -396,9 +404,21 @@ ul.check-list li::before {
         gap: 30px;
     }
     
-    /* Ordem visual: Imagem primeiro se for decorativa, ou texto primeiro se for conteúdo */
+    /* Ordem visual */
     .grid-2 > div:first-child { order: 1; }
-    .grid-2 .img-frame { order: 2; width: 100%; max-height: 200px; }
+    
+    /* CORREÇÃO DAS IMAGENS CORTADAS */
+    .grid-2 .img-frame { 
+        order: 2; 
+        width: 100%; 
+        height: auto;
+        max-height: 350px; /* Mais altura */
+        aspect-ratio: 16/9; /* Proporção padrão para não cortar demais */
+    }
+    
+    .img-frame img {
+        object-fit: cover; /* Mantém cover, mas o container agora é 16:9 */
+    }
 
     /* Cards Mobile */
     .card {
@@ -436,7 +456,6 @@ ul.check-list li::before {
         height: 45px;
         font-size: 18px;
         flex-shrink: 0;
-        /* Fundo escuro para cobrir a linha */
         position: relative;
         z-index: 2; 
     }
@@ -456,7 +475,7 @@ ul.check-list li::before {
         font-size: 16px;
     }
 
-    /* Voting Cards em Coluna ou Grade Pequena */
+    /* Voting Cards */
     .voting-container {
         flex-direction: row;
         flex-wrap: wrap;
@@ -479,17 +498,18 @@ ul.check-list li::before {
     /* Badges */
     .badge { padding: 6px 12px; font-size: 11px; margin-bottom: 15px; }
     
-    /* Conserto Slide 11 - Badges Vertical */
+    /* CORREÇÃO BADGES VERTICAL */
     .badges-container {
         flex-direction: column;
-        margin-top: 40px;
+        margin-top: 30px;
         gap: 10px;
         align-items: center;
     }
     .badges-container .badge {
         width: 100%;
-        max-width: 250px;
+        max-width: 280px; /* Largura máxima controlada */
         text-align: center;
+        margin-bottom: 0;
     }
 
     /* Barra de Navegação Fixa Inferior - CORRIGIDA */
@@ -507,16 +527,14 @@ ul.check-list li::before {
         border-top: 1px solid rgba(255,255,255,0.1);
         z-index: 1000;
         gap: 0;
-        box-sizing: border-box; /* Garante que padding não estoure a largura */
+        box-sizing: border-box; 
     }
     
-    /* Reposiciona o contador para dentro da barra */
     .slide-counter {
         position: static;
-        order: 2; /* Fica no meio */
+        order: 2; 
     }
     
-    /* Botões */
     .nav-btn {
         width: 45px;
         height: 45px;
@@ -525,7 +543,6 @@ ul.check-list li::before {
     .nav-btn:first-child { order: 1; }
     .nav-btn:last-child { order: 3; }
     
-    /* Esconder formas decorativas pesadas */
     .deco-shape { display: none; }
 }
 
@@ -747,7 +764,7 @@ ul.check-list li::before {
                                 <span style="display:block; font-size: 12px; opacity: 0.7;">(Seguir Regra / Prejuízo)</span>
                             </div>
                         </div>
-                        <div class="vote-card" style="border-color: var(--secondary); box-shadow: 0 0 20px rgba(244, 114, 182, 0.3);">
+                        <div class="vote-card" style="transform: scale(1.1); border-color: var(--secondary); box-shadow: 0 0 20px rgba(244, 114, 182, 0.3);">
                             <span class="vote-letter">B</span>
                             <div>
                                 <span style="font-size: 14px; font-weight: 700; letter-spacing: 1px; color: white;">MANTER</span>
