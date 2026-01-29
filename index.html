@@ -120,6 +120,13 @@ h1 {
     text-shadow: 0 0 40px rgba(56, 189, 248, 0.4);
 }
 
+/* Regra Específica para Slide Final Desktop */
+#slide12 h1 {
+    font-size: 130px;
+    margin-bottom: 10px;
+    color: white;
+}
+
 h2 { 
     font-size: 50px; 
     letter-spacing: -1px; 
@@ -381,6 +388,12 @@ ul.check-list li::before {
         /* Não usar justify-content: center aqui */
     }
     
+    /* Regra específica para o título "Obrigado" no mobile */
+    #slide12 h1 {
+        font-size: 60px; /* Redução drástica para caber no celular */
+        margin-bottom: 20px;
+    }
+    
     /* Centralização segura com margens automáticas para conteúdo interno */
     .slide#slide11 > div, .slide#slide12 > div {
         margin-top: auto;
@@ -388,7 +401,7 @@ ul.check-list li::before {
         width: 100%;
     }
 
-    /* Tipografia Mobile */
+    /* Tipografia Mobile Geral */
     h1 { font-size: 40px; margin-bottom: 15px; letter-spacing: -1px; }
     h2 { font-size: 28px; margin-bottom: 20px; line-height: 1.2; }
     h3 { font-size: 22px; margin-bottom: 10px; }
@@ -661,7 +674,7 @@ ul.check-list li::before {
         </div>
     </div>
 
-    <!-- Slide 5: PBL Exemplo (CORRIGIDO) -->
+    <!-- Slide 5: PBL Exemplo -->
     <div class="slide">
         <div class="grid-2">
             <div>
@@ -747,7 +760,7 @@ ul.check-list li::before {
         </div>
     </div>
 
-    <!-- Slide 9: TBL Exemplo (MELHORADO) -->
+    <!-- Slide 9: TBL Exemplo -->
     <div class="slide">
         <div class="grid-2">
             <div class="img-frame content-delay-1" style="border-color: var(--secondary);">
@@ -822,7 +835,7 @@ ul.check-list li::before {
         </div>
     </div>
 
-    <!-- Slide 11: Conclusão (AGORA CORRIGIDO PARA MOBILE) -->
+    <!-- Slide 11: Conclusão -->
     <div class="slide" id="slide11">
         <div class="deco-shape shape-1" style="top: 10%; left: 10%; opacity: 0.3;"></div>
         <div style="text-align: center; max-width: 900px; margin: 0 auto; width: 100%;">
@@ -843,7 +856,7 @@ ul.check-list li::before {
     <!-- Slide 12: Final -->
     <div class="slide" id="slide12">
         <div style="text-align: center; z-index: 2; width: 100%;">
-            <h1 style="font-size: 130px; margin-bottom: 10px; color: white;">Obrigado.</h1>
+            <h1>Obrigado.</h1>
             <p style="margin-top: 20px; font-size: 28px; color: var(--text-muted);"><i class="fa-regular fa-comments"></i> Alguma pergunta?</p>
         </div>
         <div class="deco-shape shape-3" style="bottom: -10%; right: -10%; width: 700px; height: 700px; opacity: 0.15;"></div>
