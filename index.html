@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PBL & TBL: Rich Dark</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* --- 1. CORE & RESET (RICH DARK THEME) --- */
+:root {
+    --bg-main: #0f172a;       /* Slate 900 */
+    --bg-gradient: radial-gradient(circle at top right, #1e293b, #0f172a 70%);
+    
+    /* Novo: Padrão de fundo sutil para textura */
+    --bg-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+    --card-bg: rgba(30, 41, 59, 0.6); /* Mais opaco que o clean */
+    --card-border: 1px solid rgba(255, 255, 255, 0.15); /* Borda mais forte */
+    --card-blur: 25px;
+    
+    --text-main: #f1f5f9;     
+    --text-muted: #cbd5e1;    /* Um pouco mais claro para contraste */
+    
+    --primary: #60a5fa;       /* Azul */
+    --secondary: #34d399;     /* Verde */
+    --accent: #fbbf24;        /* Amarelo */
+    
+    /* Novo: Gradiente para textos de título */
+    --title-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+    
+    /* Sombra mais rica e com cor */
+    --shadow-rich: 0 20px 40px -10px rgba(15, 23, 42, 0.5), 0 0 20px rgba(96, 165, 250, 0.2) inset;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: var(--bg-main);
+    /* Combina o degradê com a textura */
+    background-image: var(--bg-pattern), var(--bg-gradient);
+    background-blend-mode: overlay, normal;
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-main);
+}
+
+/* --- 2. CONTAINER --- */
+#presentation-area {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    background: transparent; 
+    /* Borda sutil brilhante ao redor de tudo */
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    border-radius: 32px;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 70px 90px; /* Ajuste leve no padding */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform: scale(0.95) translateY(20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Fundo mais presente para destacar do background texturizado */
+    background: rgba(15, 23, 42, 0.7); 
+    backdrop-filter: blur(15px);
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+    z-index: 10;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide.active h1, .slide.active h2, .slide.active .badge { animation: fadeInUp 0.8s ease-out forwards; }
+.slide.active .content-delay-1 { animation: fadeInUp 0.8s ease-out 0.2s forwards; opacity: 0; }
+.slide.active .content-delay-2 { animation: fadeInUp 0.8s ease-out 0.4s forwards; opacity: 0; }
+
+/* --- 3. TIPOGRAFIA RICA --- */
+h1, h2, h3 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800; /* Pesos mais fortes */
+}
+
+/* Títulos com efeito de gradiente */
+h1, h2 {
+    background: var(--title-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+h1 { font-size: 96px; letter-spacing: -3px; line-height: 1.1; margin-bottom: 24px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+h2 { font-size: 56px; letter-spacing: -1px; margin-bottom: 40px; }
+h3 { font-size: 28px; font-weight: 600; color: var(--primary); margin-bottom: 16px; }
+
+p, li { 
+    font-size: 21px; 
+    line-height: 1.6; 
+    color: var(--text-muted); 
+    font-weight: 400; /* Peso normal em vez de light */
+    margin-bottom: 20px; 
+}
+
+strong { color: white; font-weight: 600; }
+
+/* Decorativo H2 mais elaborado */
+h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 6px;
+    background: linear-gradient(to right, var(--accent), transparent);
+    margin-top: 15px;
+    border-radius: 4px;
+}
+
+/* --- 4. COMPONENTES DECORADOS --- */
+
+/* Card "Glass Plus" */
+.card {
+    background: var(--card-bg);
+    border: var(--card-border);
+    backdrop-filter: blur(var(--card-blur));
+    -webkit-backdrop-filter: blur(var(--card-blur));
+    border-radius: 24px;
+    padding: 45px;
+    /* Sombra mais rica e glow interno */
+    box-shadow: var(--shadow-rich);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efeito de brilho na borda superior do card */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+}
+
+/* TBL Card Variation */
+.card-tbl {
+    background: linear-gradient(180deg, rgba(52, 211, 153, 0.1) 0%, rgba(30, 41, 59, 0.5) 100%);
+    border-top: 4px solid var(--secondary);
+}
+
+/* Grid Layout */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 80px;
+    height: 100%;
+    align-items: center;
+}
+
+/* Listas Decoradas com Ícones */
+ul.check-list { list-style: none; }
+ul.check-list li {
+    padding-left: 45px;
+    position: relative;
+    margin-bottom: 18px;
+}
+/* Usando FontAwesome para o check */
+ul.check-list li::before {
+    content: '\f058'; /* Ícone de check-circle */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    font-size: 24px;
+    color: var(--secondary);
+    filter: drop-shadow(0 0 8px rgba(52, 211, 153, 0.4));
+}
+
+/* Imagens com Moldura Brilhante */
+.img-frame {
+    border-radius: 32px;
+    overflow: hidden;
+    height: 100%;
+    max-height: 480px;
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 20px rgba(96, 165, 250, 0.2); /* Glow azul */
+    position: relative;
+}
+.img-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 10s ease;
+}
+.slide.active .img-frame img { transform: scale(1.1); }
+
+/* Tabela Rica */
+.comparison-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(0,0,0,0.2);
+    border-radius: 20px;
+}
+.comparison-table th { 
+    color: white; 
+    font-size: 16px; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    padding: 25px 30px; 
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    font-weight: 700;
+    background: rgba(255,255,255,0.05);
+}
+.comparison-table td { 
+    padding: 30px; 
+    color: var(--text-main); 
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+    font-weight: 400;
+    font-size: 22px;
+}
+.comparison-table tr:last-child td { border-bottom: none; }
+.comparison-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+
+/* Timeline com Ícones */
+.timeline-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 90px;
+    position: relative;
+}
+/* Linha conectora mais interessante */
+.timeline-steps::before {
+    content: '';
+    position: absolute;
+    top: 35px;
+    left: 60px;
+    right: 60px;
+    height: 4px;
+    background: url("data:image/svg+xml,%3Csvg width='20' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 2h20' stroke='%233b82f6' stroke-width='2' stroke-dasharray='4 4' fill='none'/%3E%3C/svg%3E") repeat-x;
+    opacity: 0.5;
+    z-index: 0;
+}
+.step {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    width: 20%;
+}
+.step-icon-box {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary), #3b82f6);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 25px;
+    border: 4px solid rgba(15, 23, 42, 0.8); /* Borda escura para separar da linha */
+    box-shadow: 0 0 25px rgba(96, 165, 250, 0.5);
+}
+
+/* Badges mais chamativos */
+.badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 24px;
+    background: linear-gradient(to right, rgba(96, 165, 250, 0.2), rgba(52, 211, 153, 0.2));
+    border: 1px solid rgba(96, 165, 250, 0.4);
+    color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Controles */
+.nav-controls {
+    position: absolute;
+    bottom: 40px;
+    right: 60px;
+    z-index: 100;
+    display: flex;
+    gap: 20px;
+}
+.nav-btn {
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.1);
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.3s;
+    backdrop-filter: blur(5px);
+}
+.nav-btn:hover { 
+    background: var(--primary); 
+    border-color: var(--primary); 
+    box-shadow: 0 0 20px var(--primary);
+    transform: scale(1.1);
+}
+.slide-counter {
+    position: absolute;
+    bottom: 55px;
+    left: 60px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+}
+
+/* Voting Cards mais ricos */
+.voting-container { display: flex; gap: 25px; margin-top: 40px; }
+.vote-card {
+    flex: 1;
+    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(15,23,42,0.8) 100%);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+}
+.vote-card:hover { transform: translateY(-5px); border-color: var(--secondary); }
+.vote-letter { 
+    font-size: 42px; 
+    font-weight: 800; 
+    background: linear-gradient(to bottom, var(--secondary), #059669);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block; 
+    margin-bottom: 10px; 
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* Elementos Decorativos de Fundo */
+.deco-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    opacity: 0.4;
+}
+.shape-1 { top: -10%; right: -10%; width: 500px; height: 500px; background: var(--primary); }
+.shape-2 { bottom: -20%; left: -15%; width: 600px; height: 600px; background: var(--secondary); opacity: 0.3; }
+.shape-3 { top: 30%; left: 20%; width: 300px; height: 300px; background: var(--accent); opacity: 0.2; }
+
+</style>
+</head>
+<body>
+
+<div id="presentation-area">
+    <!-- Controles -->
+    <div class="slide-counter">SLIDE <span id="current">1</span> / <span id="total">11</span></div>
+    <div class="nav-controls">
+        <button class="nav-btn" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="nav-btn" onclick="nextSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Slide 1: Capa Rica -->
+    <div class="slide active">
+        <div style="max-width: 900px; position: relative; z-index: 2;">
+            <span class="badge"><i class="fa-solid fa-graduation-cap"></i> Metodologias Ativas</span>
+            <h1>PBL & TBL</h1>
+            <p style="font-size: 32px; margin-top: 10px; color: white;">Do passivo ao <span style="color: var(--accent); font-weight: 700;">protagonista</span>.</p>
+            <div class="content-delay-1" style="margin-top: 80px; display:flex; gap: 30px; align-items:center; background: rgba(255,255,255,0.05); padding: 20px 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
+                <i class="fa-solid fa-users-rectangle" style="font-size: 30px; color: var(--primary);"></i>
+                <div>
+                    <p style="margin:0; font-size: 14px; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px;">Apresentado por</p>
+                    <p style="margin: 5px 0 0; font-size: 20px; font-weight: 600; color: white;">[Seus Nomes]</p>
+                </div>
+            </div>
+        </div>
+        <!-- Formas Abstratas de Fundo -->
+        <div class="deco-shape shape-1"></div>
+        <div class="deco-shape shape-2"></div>
+    </div>
+
+    <!-- Slide 2: Problema (Rich) -->
+    <div class="slide">
+        <div class="deco-shape shape-3"></div>
+        <div class="grid-2">
+            <div>
+                <h2>A Mudança de Chave</h2>
+                <div class="content-delay-1">
+                    <p>No modelo tradicional, o professor é o detentor do saber. O aluno apenas recebe.</p>
+                    <p><strong style="color: var(--accent); font-size: 24px;"><i class="fa-solid fa-triangle-exclamation"></i> Isso não funciona mais.</strong></p>
+                </div>
+                <div class="card content-delay-2" style="margin-top: 50px; border-left: 5px solid var(--primary);">
+                    <h3 style="margin: 0; font-size: 32px;"><i class="fa-solid fa-bullseye" style="margin-right: 10px;"></i> O Aluno no Centro</h3>
+                    <p style="margin: 15px 0 0; font-size: 20px;">Ele constrói, discute e resolve. O professor vira <strong>facilitador</strong>.</p>
+                </div>
+            </div>
+            <div class="img-frame content-delay-2">
+                 <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1000&auto=format&fit=crop" alt="Sala de aula">
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: PBL Intro -->
+    <div class="slide">
+        <div class="grid-2">
+            <div class="img-frame content-delay-1" style="border-color: var(--primary);">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop" alt="Grupo PBL">
+            </div>
+            <div class="content-delay-2">
+                <span class="badge" style="background: linear-gradient(to right, var(--primary), #3b82f6);"><i class="fa-solid fa-magnifying-glass"></i> PBL - Problem Based</span>
+                <h2>O "Detetive"</h2>
+                <p>O aprendizado não começa com a teoria, mas com um <strong style="color: var(--primary); font-size: 24px;">PROBLEMA REAL</strong>.</p>
+                <ul class="check-list">
+                    <li>Alunos recebem um caso aberto e complexo.</li>
+                    <li>Não sabem a solução inicial.</li>
+                    <li>Descobrem <em>o que</em> estudar para resolver.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: 7 Passos PBL (Timeline Decorada) -->
+    <div class="slide">
+        <h2 style="text-align: center;">Os 7 Passos do PBL</h2>
+        <div class="timeline-steps content-delay-1">
+            <div class="step">
+                <div class="step-icon-box"><i class="fa-solid fa-map"></i></div>
+                <p style="font-size: 18px; margin: 0; font-weight: 600; color: white;">1. Cenário</p>
+                <p style="font-size: 15px; opacity: 0.7; margin: 8px 0 0;">Leitura e termos</p>
+            </div>
+            <div class="step">
+                <div class="step-icon-box"><i class="fa-solid fa-cloud-bolt"></i></div>
+                <p style="font-size: 18px; margin: 0; font-weight: 600; color: white;">2. Brainstorm</p>
+                <p style="font-size: 15px; opacity: 0.7; margin: 8px 0 0;">Ideias iniciais</p>
+            </div>
+            <div class="step">
+                <div class="step-icon-box"><i class="fa-solid fa-circle-question"></i></div>
+                <p style="font-size: 18px; margin: 0; font-weight: 600; color: white;">3. Questões</p>
+                <p style="font-size: 15px; opacity: 0.7; margin: 8px 0 0;">O que aprender?</p>
+            </div>
+            <div class="step">
+                <div class="step-icon-box"><i class="fa-solid fa-book-open-reader"></i></div>
+                <p style="font-size: 18px; margin: 0; font-weight: 600; color: white;">4. Estudo</p>
+                <p style="font-size: 15px; opacity: 0.7; margin: 8px 0 0;">Individual (fora)</p>
+            </div>
+            <div class="step">
+                <div class="step-icon-box"><i class="fa-solid fa-handshake-angle"></i></div>
+                <p style="font-size: 18px; margin: 0; font-weight: 600; color: white;">5. Solução</p>
+                <p style="font-size: 15px; opacity: 0.7; margin: 8px 0 0;">Aplicação prática</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Exemplo PBL -->
+    <div class="slide">
+        <div class="grid-2">
+            <div>
+                <h2>Exemplo: Medicina</h2>
+                <div class="card content-delay-1">
+                    <h3 style="font-size: 24px; color: white;"><i class="fa-solid fa-heart-pulse" style="color: var(--primary); margin-right: 10px;"></i> Caso Clínico Real</h3>
+                    <div style="background: rgba(96, 165, 250, 0.1); padding: 20px; border-radius: 12px; border-left: 4px solid var(--primary); margin: 20px 0;">
+                        <p style="font-style: italic; font-weight: 500; color: white; margin: 0;">"Paciente chega com dor aguda no peito irradiando para o braço esquerdo."</p>
+                    </div>
+                    <p>Sem aula prévia de cardiologia, eles precisam pesquisar:</p>
+                    <ul class="check-list" style="font-size: 20px;">
+                        <li>Anatomia e fisiologia do coração</li>
+                        <li>Mecanismos da dor</li>
+                        <li>Sintomas de infarto vs. angina</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="img-frame content-delay-2">
+                 <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1000&auto=format&fit=crop" alt="Médicos">
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: TBL Intro -->
+    <div class="slide">
+        <div class="deco-shape shape-2" style="left: auto; right: -20%; top: 20%;"></div>
+        <div class="grid-2">
+            <div>
+                <span class="badge" style="background: linear-gradient(to right, var(--secondary), #059669);"><i class="fa-solid fa-people-group"></i> TBL - Team Based</span>
+                <h2>A Inversão Real</h2>
+                <div class="content-delay-1">
+                    <p>O primeiro contato com o conteúdo é <strong>em casa</strong> (vídeos, leituras).</p>
+                    <p>A sala de aula é reservada exclusivamente para <strong>aplicação</strong> e debate.</p>
+                </div>
+                <div class="card content-delay-2" style="margin-top: 40px; background: linear-gradient(135deg, rgba(52, 211, 153, 0.15), rgba(15, 23, 42, 0.6)); border: 1px solid var(--secondary);">
+                    <p style="margin: 0; color: white; font-size: 22px;"><i class="fa-solid fa-key" style="color: var(--secondary); margin-right: 10px;"></i> <strong>O Segredo:</strong> Responsabilidade individual + A força da inteligência coletiva.</p>
+                </div>
+            </div>
+            <div class="img-frame content-delay-2" style="border-color: var(--secondary); box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(52, 211, 153, 0.3);">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop" alt="TBL Class">
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Fluxo TBL (Cards Decorados) -->
+    <div class="slide">
+        <h2>A Tríade do TBL</h2>
+        <div style="display: flex; gap: 40px; margin-top: 60px;" class="content-delay-1">
+            <div class="card card-tbl" style="flex: 1;">
+                <i class="fa-solid fa-house-laptop" style="font-size: 50px; color: var(--secondary); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.4));"></i>
+                <h3 style="color: var(--secondary); font-size: 26px;">1. Preparação</h3>
+                <p>Estudo de materiais curados <strong>antes</strong> da aula.</p>
+            </div>
+            <div class="card card-tbl" style="flex: 1;">
+                <i class="fa-solid fa-clipboard-check" style="font-size: 50px; color: var(--secondary); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.4));"></i>
+                <h3 style="color: var(--secondary); font-size: 26px;">2. Garantia</h3>
+                <p><strong>iRAT:</strong> Teste individual.<br><strong>tRAT:</strong> O mesmo teste em equipe (feedback imediato).</p>
+            </div>
+            <div class="card card-tbl" style="flex: 1;">
+                <i class="fa-solid fa-gavel" style="font-size: 50px; color: var(--secondary); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.4));"></i>
+                <h3 style="color: var(--secondary); font-size: 26px;">3. Aplicação</h3>
+                <p>Resolução de problemas complexos com decisões específicas.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Exemplo TBL (Voting Cards Ricos) -->
+    <div class="slide">
+        <div class="grid-2">
+            <div class="img-frame content-delay-1" style="border-color: var(--secondary);">
+                <img src="https://plus.unsplash.com/premium_photo-1661775756810-82dbd209fc95?q=80&w=1000&auto=format&fit=crop" alt="Business Meeting">
+            </div>
+            <div>
+                <h2>Exemplo: Gestão</h2>
+                <div class="card content-delay-2">
+                    <h3><i class="fa-solid fa-scale-balanced" style="color: var(--secondary);"></i> O Dilema Ético</h3>
+                    <p>Uma empresa polui um rio legalmente, mas afeta a comunidade. Qual a decisão do gestor?</p>
+                    
+                    <div class="voting-container">
+                        <div class="vote-card">
+                            <span class="vote-letter">A</span>
+                            <span style="font-size: 14px; font-weight: 700; letter-spacing: 1px; color: white;">MANTER LUCRO</span>
+                        </div>
+                        <div class="vote-card" style="transform: scale(1.1); border-color: var(--secondary); box-shadow: 0 0 20px rgba(52, 211, 153, 0.3);">
+                            <span class="vote-letter">B</span>
+                            <span style="font-size: 14px; font-weight: 700; letter-spacing: 1px; color: white;">FILTROS CAROS</span>
+                        </div>
+                        <div class="vote-card">
+                            <span class="vote-letter">C</span>
+                            <span style="font-size: 14px; font-weight: 700; letter-spacing: 1px; color: white;">MUDAR DE PAÍS</span>
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 18px; margin-top: 30px; color: var(--secondary); text-align: center;"><i class="fa-solid fa-bullhorn"></i> Todas as equipes levantam a placa <strong>ao mesmo tempo</strong>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Comparação (Tabela Rica) -->
+    <div class="slide">
+        <h2 style="margin-bottom: 50px; text-align: center;">PBL vs TBL: O Duelo</h2>
+        <div class="card content-delay-1" style="padding: 10px; overflow: hidden; border: none; background: transparent; box-shadow: none;">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th width="20%" style="font-size: 20px;"><i class="fa-solid fa-sliders"></i> Critério</th>
+                        <th width="40%" style="color: var(--primary); font-size: 24px;"><i class="fa-solid fa-magnifying-glass"></i> PBL</th>
+                        <th width="40%" style="color: var(--secondary); font-size: 24px;"><i class="fa-solid fa-people-group"></i> TBL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th><i class="fa-regular fa-flag"></i> Ponto de Partida</th>
+                        <td><strong>O Problema</strong> (antes da teoria)</td>
+                        <td><strong>Estudo Prévio</strong> (chega sabendo)</td>
+                    </tr>
+                    <tr>
+                        <th><i class="fa-solid fa-chalkboard-user"></i> Papel do Prof.</th>
+                        <td>Tutor (Intervenção mínima)</td>
+                        <td>Especialista (Guia e esclarece)</td>
+                    </tr>
+                    <tr>
+                        <th><i class="fa-solid fa-crosshairs"></i> Foco Principal</th>
+                        <td>O Processo (Aprender a pesquisar)</td>
+                        <td>O Conteúdo (Aplicação de conceitos)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Slide 10: Conclusão -->
+    <div class="slide">
+        <div class="deco-shape shape-1" style="top: 10%; left: 10%; opacity: 0.3;"></div>
+        <div style="text-align: center; max-width: 900px; margin: 0 auto;">
+            <i class="fa-solid fa-rocket" style="font-size: 80px; background: var(--title-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.4)); margin-bottom: 30px;"></i>
+            <h2>O Objetivo é Único</h2>
+            <div class="content-delay-1">
+                <p style="font-size: 36px; font-weight: 400; color: white;">Formar profissionais que não apenas "sabem", mas que <strong style="color: var(--accent); border-bottom: 3px solid var(--accent);">sabem fazer juntos</strong>.</p>
+            </div>
+            <div class="content-delay-2" style="margin-top: 70px; display: flex; gap: 25px; justify-content: center;">
+                <span class="badge" style="font-size: 16px; padding: 12px 24px;"><i class="fa-solid fa-user-astronaut"></i> Autonomia</span>
+                <span class="badge" style="font-size: 16px; padding: 12px 24px; background: linear-gradient(to right, var(--secondary), #059669); border-color: var(--secondary);"><i class="fa-solid fa-handshake"></i> Colaboração</span>
+                <span class="badge" style="font-size: 16px; padding: 12px 24px;"><i class="fa-solid fa-brain"></i> Pensamento Crítico</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: Final -->
+    <div class="slide">
+        <div style="text-align: center; z-index: 2;">
+            <h1 style="font-size: 130px; margin-bottom: 10px;">Obrigado.</h1>
+            <p style="margin-top: 20px; font-size: 28px; color: white;"><i class="fa-regular fa-comments"></i> Alguma pergunta?</p>
+        </div>
+        <div class="deco-shape shape-3" style="bottom: -10%; right: -10%; width: 700px; height: 700px; opacity: 0.15;"></div>
+    </div>
+
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const currentEl = document.getElementById('current');
+    const totalEl = document.getElementById('total');
+
+    totalEl.textContent = totalSlides;
+
+    function updateSlide() {
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[currentSlide].classList.add('active');
+        currentEl.textContent = currentSlide + 1;
+    }
+
+    function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+            currentSlide++;
+            updateSlide();
+        }
+    }
+
+    function prevSlide() {
+        if (currentSlide > 0) {
+            currentSlide--;
+            updateSlide();
+        }
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'Space') {
+            nextSlide();
+        } else if (e.key === 'ArrowLeft') {
+            prevSlide();
+        }
+    });
+</script>
+
+</body>
+</html>
