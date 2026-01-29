@@ -2,44 +2,43 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PBL & TBL: Rich Dark</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PBL & TBL: Final Presentation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-/* --- 1. CORE & RESET (RICH DARK THEME) --- */
+/* --- 1. CORE & RESET --- */
 :root {
-    --bg-main: #0f172a;       /* Slate 900 */
-    --bg-gradient: radial-gradient(circle at top right, #1e293b, #0f172a 70%);
+    --bg-main: #0b1120;       /* Azul Profundo (Quase preto) */
+    --bg-gradient: radial-gradient(circle at top right, #1e1b4b, #0b1120 80%);
     
-    /* Novo: Padrão de fundo sutil para textura */
-    --bg-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    /* Textura de fundo sutil tech */
+    --bg-pattern: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
 
-    --card-bg: rgba(30, 41, 59, 0.6); /* Mais opaco que o clean */
-    --card-border: 1px solid rgba(255, 255, 255, 0.15); /* Borda mais forte */
-    --card-blur: 25px;
+    --card-bg: rgba(15, 23, 42, 0.6); 
+    --card-border: 1px solid rgba(255, 255, 255, 0.1); 
+    --card-blur: 40px;
     
-    --text-main: #f1f5f9;     
-    --text-muted: #cbd5e1;    /* Um pouco mais claro para contraste */
+    /* CORES REFINADAS */
+    --text-main: #ffffff;     
+    --text-muted: #94a3b8;    
     
-    --primary: #60a5fa;       /* Azul */
-    --secondary: #34d399;     /* Verde */
-    --accent: #fbbf24;        /* Amarelo */
+    --primary: #38bdf8;       /* Electric Blue */
+    --secondary: #f472b6;     /* Neon Rose */
+    --accent: #a78bfa;        /* Soft Purple */
     
-    /* Novo: Gradiente para textos de título */
-    --title-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+    --title-gradient: linear-gradient(135deg, #e0f2fe 0%, var(--primary) 100%);
     
-    /* Sombra mais rica e com cor */
-    --shadow-rich: 0 20px 40px -10px rgba(15, 23, 42, 0.5), 0 0 20px rgba(96, 165, 250, 0.2) inset;
+    --shadow-glow: 0 0 20px rgba(56, 189, 248, 0.15);
+    --shadow-card: 0 20px 40px -5px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,255,255,0.05) inset;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     background: var(--bg-main);
-    /* Combina o degradê com a textura */
     background-image: var(--bg-pattern), var(--bg-gradient);
     background-blend-mode: overlay, normal;
     font-family: 'Inter', sans-serif;
@@ -56,12 +55,12 @@ body {
     width: 1280px;
     height: 720px;
     position: relative;
-    background: transparent; 
-    /* Borda sutil brilhante ao redor de tudo */
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.2); 
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 0 100px rgba(0,0,0,0.8);
     border-radius: 32px;
     overflow: hidden;
+    transition: all 0.3s ease;
 }
 
 .slide {
@@ -70,17 +69,14 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 70px 90px; /* Ajuste leve no padding */
+    padding: 60px 90px; 
     opacity: 0;
     visibility: hidden;
-    transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-    transform: scale(0.95) translateY(20px);
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform: scale(0.96) translateY(30px);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* Fundo mais presente para destacar do background texturizado */
-    background: rgba(15, 23, 42, 0.7); 
-    backdrop-filter: blur(15px);
 }
 
 .slide.active {
@@ -88,6 +84,14 @@ body {
     visibility: visible;
     transform: scale(1) translateY(0);
     z-index: 10;
+}
+
+/* Slide de Separação (Centralizado) */
+.separator-slide {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(244, 114, 182, 0.1));
+    align-items: center;
+    justify-content: center; 
+    text-align: center;
 }
 
 /* --- ANIMATIONS --- */
@@ -100,62 +104,69 @@ body {
 .slide.active .content-delay-1 { animation: fadeInUp 0.8s ease-out 0.2s forwards; opacity: 0; }
 .slide.active .content-delay-2 { animation: fadeInUp 0.8s ease-out 0.4s forwards; opacity: 0; }
 
-/* --- 3. TIPOGRAFIA RICA --- */
+/* --- 3. TYPOGRAPHY --- */
 h1, h2, h3 {
     font-family: 'Outfit', sans-serif;
-    font-weight: 800; /* Pesos mais fortes */
+    font-weight: 800;
+    color: var(--text-main);
 }
 
-/* Títulos com efeito de gradiente */
-h1, h2 {
-    background: var(--title-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
+h1 { 
+    font-size: 88px; 
+    letter-spacing: -3px; 
+    line-height: 1.1; 
+    margin-bottom: 20px;
+    text-shadow: 0 0 40px rgba(56, 189, 248, 0.4);
 }
 
-h1 { font-size: 96px; letter-spacing: -3px; line-height: 1.1; margin-bottom: 24px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
-h2 { font-size: 56px; letter-spacing: -1px; margin-bottom: 40px; }
-h3 { font-size: 28px; font-weight: 600; color: var(--primary); margin-bottom: 16px; }
+h2 { 
+    font-size: 50px; 
+    letter-spacing: -1px; 
+    margin-bottom: 30px; 
+}
+
+h3 { 
+    font-size: 26px; 
+    font-weight: 600; 
+    color: var(--primary); 
+    margin-bottom: 14px; 
+}
 
 p, li { 
-    font-size: 21px; 
-    line-height: 1.6; 
+    font-size: 20px; 
+    line-height: 1.5; 
     color: var(--text-muted); 
-    font-weight: 400; /* Peso normal em vez de light */
-    margin-bottom: 20px; 
+    font-weight: 400; 
+    margin-bottom: 16px; 
 }
 
-strong { color: white; font-weight: 600; }
+strong { color: var(--text-main); font-weight: 600; }
 
-/* Decorativo H2 mais elaborado */
 h2::after {
     content: '';
     display: block;
-    width: 80px;
+    width: 60px;
     height: 6px;
-    background: linear-gradient(to right, var(--accent), transparent);
+    background: linear-gradient(to right, var(--primary), var(--secondary));
     margin-top: 15px;
     border-radius: 4px;
+    box-shadow: var(--shadow-glow);
 }
 
-/* --- 4. COMPONENTES DECORADOS --- */
+/* --- 4. COMPONENTS --- */
 
-/* Card "Glass Plus" */
 .card {
     background: var(--card-bg);
     border: var(--card-border);
     backdrop-filter: blur(var(--card-blur));
     -webkit-backdrop-filter: blur(var(--card-blur));
     border-radius: 24px;
-    padding: 45px;
-    /* Sombra mais rica e glow interno */
-    box-shadow: var(--shadow-rich);
+    padding: 35px; 
+    box-shadow: var(--shadow-card);
     position: relative;
     overflow: hidden;
 }
 
-/* Efeito de brilho na borda superior do card */
 .card::before {
     content: '';
     position: absolute;
@@ -164,128 +175,105 @@ h2::after {
     background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
 }
 
-/* TBL Card Variation */
 .card-tbl {
-    background: linear-gradient(180deg, rgba(52, 211, 153, 0.1) 0%, rgba(30, 41, 59, 0.5) 100%);
+    background: linear-gradient(180deg, rgba(244, 114, 182, 0.05) 0%, rgba(15, 23, 42, 0.8) 100%);
     border-top: 4px solid var(--secondary);
 }
 
-/* Grid Layout */
 .grid-2 {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
-    gap: 80px;
+    gap: 60px; 
     height: 100%;
-    align-items: center;
+    align-items: center; 
 }
 
-/* Listas Decoradas com Ícones */
+/* Listas */
 ul.check-list { list-style: none; }
-ul.check-list li {
-    padding-left: 45px;
-    position: relative;
-    margin-bottom: 18px;
-}
-/* Usando FontAwesome para o check */
+ul.check-list li { padding-left: 40px; position: relative; margin-bottom: 15px; }
 ul.check-list li::before {
-    content: '\f058'; /* Ícone de check-circle */
+    content: '\f058'; 
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     position: absolute;
-    left: 0;
-    top: 2px;
+    left: 0; top: 2px;
     font-size: 24px;
-    color: var(--secondary);
-    filter: drop-shadow(0 0 8px rgba(52, 211, 153, 0.4));
+    color: var(--secondary); 
+    filter: drop-shadow(0 0 8px rgba(244, 114, 182, 0.5));
 }
 
-/* Imagens com Moldura Brilhante */
 .img-frame {
     border-radius: 32px;
     overflow: hidden;
     height: 100%;
-    max-height: 480px;
-    border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 20px rgba(96, 165, 250, 0.2); /* Glow azul */
+    max-height: 450px; 
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: -20px 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(56, 189, 248, 0.1);
     position: relative;
 }
 .img-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 10s ease;
 }
-.slide.active .img-frame img { transform: scale(1.1); }
 
-/* Tabela Rica */
+/* Tabela Compacta */
 .comparison-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    background: rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.03);
     border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
 }
 .comparison-table th { 
-    color: white; 
+    color: var(--text-main); 
     font-size: 16px; 
     text-transform: uppercase; 
     letter-spacing: 2px; 
-    padding: 25px 30px; 
-    border-bottom: 2px solid rgba(255,255,255,0.1);
+    padding: 15px 20px; 
+    border-bottom: 1px solid rgba(255,255,255,0.1);
     font-weight: 700;
     background: rgba(255,255,255,0.05);
 }
 .comparison-table td { 
-    padding: 30px; 
+    padding: 20px; 
     color: var(--text-main); 
     border-bottom: 1px solid rgba(255,255,255,0.05); 
     font-weight: 400;
-    font-size: 22px;
+    font-size: 20px;
 }
 .comparison-table tr:last-child td { border-bottom: none; }
-.comparison-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
 
-/* Timeline com Ícones */
+/* Timeline Ajustada */
 .timeline-steps {
     display: flex;
     justify-content: space-between;
-    margin-top: 90px;
+    margin-top: 50px; 
     position: relative;
 }
-/* Linha conectora mais interessante */
 .timeline-steps::before {
     content: '';
     position: absolute;
-    top: 35px;
-    left: 60px;
-    right: 60px;
-    height: 4px;
-    background: url("data:image/svg+xml,%3Csvg width='20' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 2h20' stroke='%233b82f6' stroke-width='2' stroke-dasharray='4 4' fill='none'/%3E%3C/svg%3E") repeat-x;
-    opacity: 0.5;
+    top: 35px; left: 60px; right: 60px;
+    height: 2px;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    opacity: 0.3;
     z-index: 0;
 }
-.step {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    width: 20%;
-}
+.step { position: relative; z-index: 1; text-align: center; width: 20%; }
 .step-icon-box {
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, var(--primary), #3b82f6);
-    color: white;
+    width: 70px; height: 70px;
+    background: var(--bg-main);
+    border: 2px solid var(--primary);
+    color: var(--text-main);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    margin: 0 auto 25px;
-    border: 4px solid rgba(15, 23, 42, 0.8); /* Borda escura para separar da linha */
-    box-shadow: 0 0 25px rgba(96, 165, 250, 0.5);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
 }
 
-/* Badges mais chamativos */
 .badge {
     display: inline-block;
     padding: 8px 18px;
@@ -295,32 +283,25 @@ ul.check-list li::before {
     text-transform: uppercase;
     letter-spacing: 1.5px;
     margin-bottom: 24px;
-    background: linear-gradient(to right, rgba(96, 165, 250, 0.2), rgba(52, 211, 153, 0.2));
-    border: 1px solid rgba(96, 165, 250, 0.4);
-    color: white;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-main);
+    backdrop-filter: blur(10px);
 }
 
-/* Controles */
 .nav-controls {
-    position: absolute;
-    bottom: 40px;
-    right: 60px;
-    z-index: 100;
-    display: flex;
-    gap: 20px;
+    position: absolute; bottom: 40px; right: 60px; z-index: 100;
+    display: flex; gap: 20px;
 }
 .nav-btn {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
     color: white;
-    border: 2px solid rgba(255,255,255,0.1);
-    width: 54px;
-    height: 54px;
+    border: 1px solid rgba(255,255,255,0.2);
+    width: 54px; height: 54px;
     border-radius: 50%;
     cursor: pointer;
     font-size: 20px;
     transition: all 0.3s;
-    backdrop-filter: blur(5px);
 }
 .nav-btn:hover { 
     background: var(--primary); 
@@ -329,50 +310,100 @@ ul.check-list li::before {
     transform: scale(1.1);
 }
 .slide-counter {
-    position: absolute;
-    bottom: 55px;
-    left: 60px;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 2px;
+    position: absolute; bottom: 55px; left: 60px;
+    font-size: 14px; font-weight: 700; letter-spacing: 2px;
     color: var(--text-muted);
 }
 
-/* Voting Cards mais ricos */
-.voting-container { display: flex; gap: 25px; margin-top: 40px; }
+.voting-container { display: flex; gap: 25px; margin-top: 30px; }
 .vote-card {
     flex: 1;
-    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(15,23,42,0.8) 100%);
+    background: rgba(255,255,255,0.03);
     border: 1px solid rgba(255,255,255,0.1);
-    padding: 25px;
+    padding: 20px;
     border-radius: 20px;
     text-align: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     transition: transform 0.3s;
 }
-.vote-card:hover { transform: translateY(-5px); border-color: var(--secondary); }
+.vote-card:hover { transform: translateY(-5px); border-color: var(--secondary); background: rgba(244, 114, 182, 0.1); }
 .vote-letter { 
-    font-size: 42px; 
-    font-weight: 800; 
-    background: linear-gradient(to bottom, var(--secondary), #059669);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: block; 
-    margin-bottom: 10px; 
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    font-size: 42px; font-weight: 800; 
+    color: var(--secondary);
+    display: block; margin-bottom: 5px; 
+    text-shadow: 0 0 20px rgba(244, 114, 182, 0.6);
 }
 
-/* Elementos Decorativos de Fundo */
 .deco-shape {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    z-index: -1;
-    opacity: 0.4;
+    position: absolute; border-radius: 50%; filter: blur(100px); z-index: -1; opacity: 0.3;
 }
-.shape-1 { top: -10%; right: -10%; width: 500px; height: 500px; background: var(--primary); }
-.shape-2 { bottom: -20%; left: -15%; width: 600px; height: 600px; background: var(--secondary); opacity: 0.3; }
-.shape-3 { top: 30%; left: 20%; width: 300px; height: 300px; background: var(--accent); opacity: 0.2; }
+.shape-1 { top: -10%; right: -10%; width: 600px; height: 600px; background: var(--primary); }
+.shape-2 { bottom: -20%; left: -15%; width: 700px; height: 700px; background: var(--secondary); opacity: 0.2; }
+.shape-3 { top: 40%; left: 30%; width: 400px; height: 400px; background: var(--accent); opacity: 0.15; }
+
+/* --- 5. RESPONSIVIDADE MOBILE --- */
+@media (max-width: 768px) {
+    #presentation-area {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+    }
+
+    .slide {
+        padding: 30px 20px; /* Padding reduzido para mobile */
+        justify-content: flex-start; /* Alinha topo para permitir scroll */
+        overflow-y: auto; /* Permite rolar se o texto for longo */
+    }
+
+    h1 { font-size: 42px; letter-spacing: -1px; margin-bottom: 15px; }
+    h2 { font-size: 32px; margin-bottom: 20px; }
+    h3 { font-size: 22px; }
+    p, li { font-size: 18px; }
+
+    .grid-2 {
+        grid-template-columns: 1fr; /* Coluna única */
+        gap: 30px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Ajuste ordem visual: Texto primeiro, imagem depois em mobile */
+    .grid-2 > div:first-child { order: 1; }
+    .grid-2 > .img-frame { order: 2; width: 100%; max-height: 250px; }
+
+    /* Timeline Vertical em Mobile */
+    .timeline-steps {
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 30px;
+    }
+    .timeline-steps::before {
+        width: 2px; height: 100%; top: 0; left: 35px; /* Linha vertical */
+    }
+    .step {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        text-align: left;
+        gap: 15px;
+        background: rgba(15,23,42,0.8);
+        padding: 10px;
+        border-radius: 12px;
+    }
+    .step-icon-box { margin: 0; width: 50px; height: 50px; font-size: 20px; flex-shrink: 0; }
+
+    /* Tabela scrollável */
+    .comparison-table { display: block; overflow-x: auto; }
+    .comparison-table td, .comparison-table th { padding: 15px; font-size: 16px; }
+
+    /* Controles Mobile */
+    .nav-controls { bottom: 20px; right: 20px; }
+    .slide-counter { bottom: 35px; left: 20px; font-size: 12px; }
+    
+    .voting-container { flex-wrap: wrap; }
+    .vote-card { min-width: 45%; }
+}
 
 </style>
 </head>
@@ -380,32 +411,31 @@ ul.check-list li::before {
 
 <div id="presentation-area">
     <!-- Controles -->
-    <div class="slide-counter">SLIDE <span id="current">1</span> / <span id="total">11</span></div>
+    <div class="slide-counter">SLIDE <span id="current">1</span> / <span id="total">12</span></div>
     <div class="nav-controls">
         <button class="nav-btn" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i></button>
         <button class="nav-btn" onclick="nextSlide()"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
 
-    <!-- Slide 1: Capa Rica -->
+    <!-- Slide 1: Capa -->
     <div class="slide active">
         <div style="max-width: 900px; position: relative; z-index: 2;">
-            <span class="badge"><i class="fa-solid fa-graduation-cap"></i> Metodologias Ativas</span>
+            <span class="badge" style="border-color: var(--primary); color: var(--primary);"><i class="fa-solid fa-graduation-cap"></i> Metodologias Ativas</span>
             <h1>PBL & TBL</h1>
-            <p style="font-size: 32px; margin-top: 10px; color: white;">Do passivo ao <span style="color: var(--accent); font-weight: 700;">protagonista</span>.</p>
-            <div class="content-delay-1" style="margin-top: 80px; display:flex; gap: 30px; align-items:center; background: rgba(255,255,255,0.05); padding: 20px 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
+            <p style="font-size: 32px; margin-top: 10px;">Do passivo ao <span style="color: var(--secondary); font-weight: 700; text-shadow: 0 0 15px rgba(244,114,182,0.4);">protagonista</span>.</p>
+            <div class="content-delay-1" style="margin-top: 50px; display:flex; gap: 30px; align-items:center; background: rgba(255,255,255,0.05); padding: 20px 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
                 <i class="fa-solid fa-users-rectangle" style="font-size: 30px; color: var(--primary);"></i>
                 <div>
                     <p style="margin:0; font-size: 14px; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px;">Apresentado por</p>
-                    <p style="margin: 5px 0 0; font-size: 20px; font-weight: 600; color: white;">[Seus Nomes]</p>
+                    <p style="margin: 5px 0 0; font-size: 20px; font-weight: 600;">Pietra, Renan e Isabelly</p>
                 </div>
             </div>
         </div>
-        <!-- Formas Abstratas de Fundo -->
         <div class="deco-shape shape-1"></div>
         <div class="deco-shape shape-2"></div>
     </div>
 
-    <!-- Slide 2: Problema (Rich) -->
+    <!-- Slide 2: Contexto -->
     <div class="slide">
         <div class="deco-shape shape-3"></div>
         <div class="grid-2">
@@ -413,9 +443,9 @@ ul.check-list li::before {
                 <h2>A Mudança de Chave</h2>
                 <div class="content-delay-1">
                     <p>No modelo tradicional, o professor é o detentor do saber. O aluno apenas recebe.</p>
-                    <p><strong style="color: var(--accent); font-size: 24px;"><i class="fa-solid fa-triangle-exclamation"></i> Isso não funciona mais.</strong></p>
+                    <p><strong style="color: var(--secondary); font-size: 24px; text-shadow: 0 0 10px rgba(244,114,182,0.3);"><i class="fa-solid fa-triangle-exclamation"></i> Isso não funciona mais.</strong></p>
                 </div>
-                <div class="card content-delay-2" style="margin-top: 50px; border-left: 5px solid var(--primary);">
+                <div class="card content-delay-2" style="margin-top: 40px; border-left: 5px solid var(--primary);">
                     <h3 style="margin: 0; font-size: 32px;"><i class="fa-solid fa-bullseye" style="margin-right: 10px;"></i> O Aluno no Centro</h3>
                     <p style="margin: 15px 0 0; font-size: 20px;">Ele constrói, discute e resolve. O professor vira <strong>facilitador</strong>.</p>
                 </div>
@@ -426,14 +456,14 @@ ul.check-list li::before {
         </div>
     </div>
 
-    <!-- Slide 3: PBL Intro -->
+    <!-- Slide 3: PBL Conceito -->
     <div class="slide">
         <div class="grid-2">
             <div class="img-frame content-delay-1" style="border-color: var(--primary);">
                 <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop" alt="Grupo PBL">
             </div>
             <div class="content-delay-2">
-                <span class="badge" style="background: linear-gradient(to right, var(--primary), #3b82f6);"><i class="fa-solid fa-magnifying-glass"></i> PBL - Problem Based</span>
+                <span class="badge" style="border-color: var(--primary); color: var(--primary);"><i class="fa-solid fa-magnifying-glass"></i> PBL - Problem Based</span>
                 <h2>O "Detetive"</h2>
                 <p>O aprendizado não começa com a teoria, mas com um <strong style="color: var(--primary); font-size: 24px;">PROBLEMA REAL</strong>.</p>
                 <ul class="check-list">
@@ -445,53 +475,63 @@ ul.check-list li::before {
         </div>
     </div>
 
-    <!-- Slide 4: 7 Passos PBL (Timeline Decorada) -->
+    <!-- Slide 4: PBL Passos -->
     <div class="slide">
         <h2 style="text-align: center;">Os 7 Passos do PBL</h2>
         <div class="timeline-steps content-delay-1">
             <div class="step">
-                <div class="step-icon-box"><i class="fa-solid fa-map"></i></div>
-                <p style="font-size: 18px; margin: 0; font-weight: 600; color: white;">1. Cenário</p>
-                <p style="font-size: 15px; opacity: 0.7; margin: 8px 0 0;">Leitura e termos</p>
+                <div class="step-icon-box" style="border-color: var(--primary);"><i class="fa-solid fa-map" style="color: var(--primary);"></i></div>
+                <div>
+                    <p style="font-size: 18px; margin: 0; font-weight: 600;">1. Cenário</p>
+                    <p style="font-size: 15px; opacity: 0.7; margin: 5px 0 0;">Leitura e termos</p>
+                </div>
             </div>
             <div class="step">
-                <div class="step-icon-box"><i class="fa-solid fa-cloud-bolt"></i></div>
-                <p style="font-size: 18px; margin: 0; font-weight: 600; color: white;">2. Brainstorm</p>
-                <p style="font-size: 15px; opacity: 0.7; margin: 8px 0 0;">Ideias iniciais</p>
+                <div class="step-icon-box" style="border-color: var(--primary);"><i class="fa-solid fa-cloud-bolt" style="color: var(--primary);"></i></div>
+                <div>
+                    <p style="font-size: 18px; margin: 0; font-weight: 600;">2. Brainstorm</p>
+                    <p style="font-size: 15px; opacity: 0.7; margin: 5px 0 0;">Ideias iniciais</p>
+                </div>
             </div>
             <div class="step">
-                <div class="step-icon-box"><i class="fa-solid fa-circle-question"></i></div>
-                <p style="font-size: 18px; margin: 0; font-weight: 600; color: white;">3. Questões</p>
-                <p style="font-size: 15px; opacity: 0.7; margin: 8px 0 0;">O que aprender?</p>
+                <div class="step-icon-box" style="border-color: var(--primary);"><i class="fa-solid fa-circle-question" style="color: var(--primary);"></i></div>
+                <div>
+                    <p style="font-size: 18px; margin: 0; font-weight: 600;">3. Questões</p>
+                    <p style="font-size: 15px; opacity: 0.7; margin: 5px 0 0;">O que aprender?</p>
+                </div>
             </div>
             <div class="step">
-                <div class="step-icon-box"><i class="fa-solid fa-book-open-reader"></i></div>
-                <p style="font-size: 18px; margin: 0; font-weight: 600; color: white;">4. Estudo</p>
-                <p style="font-size: 15px; opacity: 0.7; margin: 8px 0 0;">Individual (fora)</p>
+                <div class="step-icon-box" style="border-color: var(--primary);"><i class="fa-solid fa-book-open-reader" style="color: var(--primary);"></i></div>
+                <div>
+                    <p style="font-size: 18px; margin: 0; font-weight: 600;">4. Estudo</p>
+                    <p style="font-size: 15px; opacity: 0.7; margin: 5px 0 0;">Individual (fora)</p>
+                </div>
             </div>
             <div class="step">
-                <div class="step-icon-box"><i class="fa-solid fa-handshake-angle"></i></div>
-                <p style="font-size: 18px; margin: 0; font-weight: 600; color: white;">5. Solução</p>
-                <p style="font-size: 15px; opacity: 0.7; margin: 8px 0 0;">Aplicação prática</p>
+                <div class="step-icon-box" style="border-color: var(--primary);"><i class="fa-solid fa-handshake-angle" style="color: var(--primary);"></i></div>
+                <div>
+                    <p style="font-size: 18px; margin: 0; font-weight: 600;">5. Solução</p>
+                    <p style="font-size: 15px; opacity: 0.7; margin: 5px 0 0;">Aplicação prática</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Slide 5: Exemplo PBL -->
+    <!-- Slide 5: PBL Exemplo (CORRIGIDO) -->
     <div class="slide">
         <div class="grid-2">
             <div>
                 <h2>Exemplo: Medicina</h2>
                 <div class="card content-delay-1">
-                    <h3 style="font-size: 24px; color: white;"><i class="fa-solid fa-heart-pulse" style="color: var(--primary); margin-right: 10px;"></i> Caso Clínico Real</h3>
-                    <div style="background: rgba(96, 165, 250, 0.1); padding: 20px; border-radius: 12px; border-left: 4px solid var(--primary); margin: 20px 0;">
-                        <p style="font-style: italic; font-weight: 500; color: white; margin: 0;">"Paciente chega com dor aguda no peito irradiando para o braço esquerdo."</p>
+                    <h3 style="font-size: 24px; color: var(--text-main);"><i class="fa-solid fa-heart-pulse" style="color: var(--primary); margin-right: 10px;"></i> O Desafio Clínico</h3>
+                    <div style="background: rgba(56, 189, 248, 0.1); padding: 20px; border-radius: 12px; border-left: 4px solid var(--primary); margin: 20px 0;">
+                        <p style="font-style: italic; font-weight: 500; color: white; margin: 0;">"Homem, 58 anos, <strong>tabagista</strong>. Dor retroesternal opressiva irradiando para mandíbula e braço esquerdo. Associada a sudorese."</p>
                     </div>
-                    <p>Sem aula prévia de cardiologia, eles precisam pesquisar:</p>
+                    <p>Sem aula prévia, o grupo define os objetivos:</p>
                     <ul class="check-list" style="font-size: 20px;">
-                        <li>Anatomia e fisiologia do coração</li>
-                        <li>Mecanismos da dor</li>
-                        <li>Sintomas de infarto vs. angina</li>
+                        <li>Revisar anatomia das coronárias.</li>
+                        <li>Entender a fisiologia da isquemia cardíaca.</li>
+                        <li>Interpretar marcadores de necrose e ECG.</li>
                     </ul>
                 </div>
             </div>
@@ -501,50 +541,69 @@ ul.check-list li::before {
         </div>
     </div>
 
-    <!-- Slide 6: TBL Intro -->
+    <!-- Slide 6: SEPARADOR -->
+    <div class="slide separator-slide">
+        <div class="content-delay-1">
+            <span class="badge" style="background: rgba(255,255,255,0.2); border: none; font-size: 16px;">Parte 02</span>
+            <h2 style="font-size: 80px; margin-top: 20px; margin-bottom: 20px; text-shadow: 0 0 30px rgba(255,255,255,0.2);">Mudança de Foco</h2>
+            <div style="display: flex; gap: 40px; justify-content: center; margin-top: 40px;">
+                <div style="text-align: center; opacity: 0.5;">
+                    <i class="fa-solid fa-magnifying-glass" style="font-size: 40px;"></i>
+                    <p>Problema</p>
+                </div>
+                <i class="fa-solid fa-arrow-right" style="font-size: 30px; align-self: center; color: var(--secondary);"></i>
+                <div style="text-align: center; color: var(--secondary); transform: scale(1.1);">
+                    <i class="fa-solid fa-people-group" style="font-size: 40px; filter: drop-shadow(0 0 10px var(--secondary));"></i>
+                    <p style="color: white; font-weight: 700;">Equipe</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: TBL Intro -->
     <div class="slide">
         <div class="deco-shape shape-2" style="left: auto; right: -20%; top: 20%;"></div>
         <div class="grid-2">
             <div>
-                <span class="badge" style="background: linear-gradient(to right, var(--secondary), #059669);"><i class="fa-solid fa-people-group"></i> TBL - Team Based</span>
+                <span class="badge" style="border-color: var(--secondary); color: var(--secondary);"><i class="fa-solid fa-people-group"></i> TBL - Team Based</span>
                 <h2>A Inversão Real</h2>
                 <div class="content-delay-1">
                     <p>O primeiro contato com o conteúdo é <strong>em casa</strong> (vídeos, leituras).</p>
                     <p>A sala de aula é reservada exclusivamente para <strong>aplicação</strong> e debate.</p>
                 </div>
-                <div class="card content-delay-2" style="margin-top: 40px; background: linear-gradient(135deg, rgba(52, 211, 153, 0.15), rgba(15, 23, 42, 0.6)); border: 1px solid var(--secondary);">
+                <div class="card content-delay-2" style="margin-top: 40px; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--secondary);">
                     <p style="margin: 0; color: white; font-size: 22px;"><i class="fa-solid fa-key" style="color: var(--secondary); margin-right: 10px;"></i> <strong>O Segredo:</strong> Responsabilidade individual + A força da inteligência coletiva.</p>
                 </div>
             </div>
-            <div class="img-frame content-delay-2" style="border-color: var(--secondary); box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(52, 211, 153, 0.3);">
+            <div class="img-frame content-delay-2" style="border-color: var(--secondary); box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(244, 114, 182, 0.3);">
                 <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop" alt="TBL Class">
             </div>
         </div>
     </div>
 
-    <!-- Slide 7: Fluxo TBL (Cards Decorados) -->
+    <!-- Slide 8: TBL Fluxo -->
     <div class="slide">
         <h2>A Tríade do TBL</h2>
-        <div style="display: flex; gap: 40px; margin-top: 60px;" class="content-delay-1">
+        <div style="display: flex; gap: 40px; margin-top: 60px;" class="content-delay-1 grid-2" style="grid-template-columns: 1fr 1fr 1fr;">
             <div class="card card-tbl" style="flex: 1;">
-                <i class="fa-solid fa-house-laptop" style="font-size: 50px; color: var(--secondary); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.4));"></i>
+                <i class="fa-solid fa-house-laptop" style="font-size: 50px; color: var(--secondary); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(244, 114, 182, 0.4));"></i>
                 <h3 style="color: var(--secondary); font-size: 26px;">1. Preparação</h3>
                 <p>Estudo de materiais curados <strong>antes</strong> da aula.</p>
             </div>
             <div class="card card-tbl" style="flex: 1;">
-                <i class="fa-solid fa-clipboard-check" style="font-size: 50px; color: var(--secondary); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.4));"></i>
+                <i class="fa-solid fa-clipboard-check" style="font-size: 50px; color: var(--secondary); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(244, 114, 182, 0.4));"></i>
                 <h3 style="color: var(--secondary); font-size: 26px;">2. Garantia</h3>
                 <p><strong>iRAT:</strong> Teste individual.<br><strong>tRAT:</strong> O mesmo teste em equipe (feedback imediato).</p>
             </div>
             <div class="card card-tbl" style="flex: 1;">
-                <i class="fa-solid fa-gavel" style="font-size: 50px; color: var(--secondary); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.4));"></i>
+                <i class="fa-solid fa-gavel" style="font-size: 50px; color: var(--secondary); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(244, 114, 182, 0.4));"></i>
                 <h3 style="color: var(--secondary); font-size: 26px;">3. Aplicação</h3>
                 <p>Resolução de problemas complexos com decisões específicas.</p>
             </div>
         </div>
     </div>
 
-    <!-- Slide 8: Exemplo TBL (Voting Cards Ricos) -->
+    <!-- Slide 9: TBL Exemplo (MELHORADO) -->
     <div class="slide">
         <div class="grid-2">
             <div class="img-frame content-delay-1" style="border-color: var(--secondary);">
@@ -553,31 +612,34 @@ ul.check-list li::before {
             <div>
                 <h2>Exemplo: Gestão</h2>
                 <div class="card content-delay-2">
-                    <h3><i class="fa-solid fa-scale-balanced" style="color: var(--secondary);"></i> O Dilema Ético</h3>
-                    <p>Uma empresa polui um rio legalmente, mas afeta a comunidade. Qual a decisão do gestor?</p>
+                    <h3><i class="fa-solid fa-scale-balanced" style="color: var(--secondary);"></i> O Dilema do Líder</h3>
+                    <p style="font-size: 18px;">O vendedor "estrela" (que traz 40% da receita) violou o código de ética. A regra é demissão, mas sem ele a empresa fecha o ano no vermelho.</p>
                     
                     <div class="voting-container">
                         <div class="vote-card">
                             <span class="vote-letter">A</span>
-                            <span style="font-size: 14px; font-weight: 700; letter-spacing: 1px; color: white;">MANTER LUCRO</span>
+                            <span style="font-size: 14px; font-weight: 700; letter-spacing: 1px; color: white;">DEMITIR</span>
+                            <span style="display:block; font-size: 12px; opacity: 0.7;">(Seguir Regra / Prejuízo)</span>
                         </div>
-                        <div class="vote-card" style="transform: scale(1.1); border-color: var(--secondary); box-shadow: 0 0 20px rgba(52, 211, 153, 0.3);">
+                        <div class="vote-card" style="transform: scale(1.1); border-color: var(--secondary); box-shadow: 0 0 20px rgba(244, 114, 182, 0.3);">
                             <span class="vote-letter">B</span>
-                            <span style="font-size: 14px; font-weight: 700; letter-spacing: 1px; color: white;">FILTROS CAROS</span>
+                            <span style="font-size: 14px; font-weight: 700; letter-spacing: 1px; color: white;">MANTER</span>
+                            <span style="display:block; font-size: 12px; opacity: 0.7;">(Salvar Meta / Risco)</span>
                         </div>
                         <div class="vote-card">
                             <span class="vote-letter">C</span>
-                            <span style="font-size: 14px; font-weight: 700; letter-spacing: 1px; color: white;">MUDAR DE PAÍS</span>
+                            <span style="font-size: 14px; font-weight: 700; letter-spacing: 1px; color: white;">ADVERTIR</span>
+                            <span style="display:block; font-size: 12px; opacity: 0.7;">(Punição Leve / Reter)</span>
                         </div>
                     </div>
                     
-                    <p style="font-size: 18px; margin-top: 30px; color: var(--secondary); text-align: center;"><i class="fa-solid fa-bullhorn"></i> Todas as equipes levantam a placa <strong>ao mesmo tempo</strong>.</p>
+                    <p style="font-size: 16px; margin-top: 20px; color: var(--secondary); text-align: center;"><i class="fa-solid fa-bullhorn"></i> Todas as equipes votam <strong>ao mesmo tempo</strong>.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Slide 9: Comparação (Tabela Rica) -->
+    <!-- Slide 10: Comparação -->
     <div class="slide">
         <h2 style="margin-bottom: 50px; text-align: center;">PBL vs TBL: O Duelo</h2>
         <div class="card content-delay-1" style="padding: 10px; overflow: hidden; border: none; background: transparent; box-shadow: none;">
@@ -610,28 +672,28 @@ ul.check-list li::before {
         </div>
     </div>
 
-    <!-- Slide 10: Conclusão -->
+    <!-- Slide 11: Conclusão -->
     <div class="slide">
         <div class="deco-shape shape-1" style="top: 10%; left: 10%; opacity: 0.3;"></div>
         <div style="text-align: center; max-width: 900px; margin: 0 auto;">
-            <i class="fa-solid fa-rocket" style="font-size: 80px; background: var(--title-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.4)); margin-bottom: 30px;"></i>
+            <i class="fa-solid fa-rocket" style="font-size: 80px; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.4)); margin-bottom: 30px;"></i>
             <h2>O Objetivo é Único</h2>
             <div class="content-delay-1">
-                <p style="font-size: 36px; font-weight: 400; color: white;">Formar profissionais que não apenas "sabem", mas que <strong style="color: var(--accent); border-bottom: 3px solid var(--accent);">sabem fazer juntos</strong>.</p>
+                <p style="font-size: 36px; font-weight: 400; color: white;">Formar profissionais que não apenas "sabem", mas que <strong style="color: var(--secondary); border-bottom: 3px solid var(--secondary);">sabem fazer juntos</strong>.</p>
             </div>
             <div class="content-delay-2" style="margin-top: 70px; display: flex; gap: 25px; justify-content: center;">
                 <span class="badge" style="font-size: 16px; padding: 12px 24px;"><i class="fa-solid fa-user-astronaut"></i> Autonomia</span>
-                <span class="badge" style="font-size: 16px; padding: 12px 24px; background: linear-gradient(to right, var(--secondary), #059669); border-color: var(--secondary);"><i class="fa-solid fa-handshake"></i> Colaboração</span>
+                <span class="badge" style="font-size: 16px; padding: 12px 24px; background: linear-gradient(to right, var(--secondary), #ec4899); border-color: var(--secondary); color: white;"><i class="fa-solid fa-handshake"></i> Colaboração</span>
                 <span class="badge" style="font-size: 16px; padding: 12px 24px;"><i class="fa-solid fa-brain"></i> Pensamento Crítico</span>
             </div>
         </div>
     </div>
 
-    <!-- Slide 11: Final -->
+    <!-- Slide 12: Final -->
     <div class="slide">
         <div style="text-align: center; z-index: 2;">
-            <h1 style="font-size: 130px; margin-bottom: 10px;">Obrigado.</h1>
-            <p style="margin-top: 20px; font-size: 28px; color: white;"><i class="fa-regular fa-comments"></i> Alguma pergunta?</p>
+            <h1 style="font-size: 130px; margin-bottom: 10px; color: white;">Obrigado.</h1>
+            <p style="margin-top: 20px; font-size: 28px; color: var(--text-muted);"><i class="fa-regular fa-comments"></i> Alguma pergunta?</p>
         </div>
         <div class="deco-shape shape-3" style="bottom: -10%; right: -10%; width: 700px; height: 700px; opacity: 0.15;"></div>
     </div>
