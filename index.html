@@ -14,7 +14,6 @@
     --bg-main: #0b1120;       /* Azul Profundo (Quase preto) */
     --bg-gradient: radial-gradient(circle at top right, #1e1b4b, #0b1120 80%);
     
-    /* Textura de fundo sutil tech */
     --bg-pattern: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
 
     --card-bg: rgba(15, 23, 42, 0.6); 
@@ -368,24 +367,25 @@ ul.check-list li::before {
 
     .slide {
         padding: 80px 25px 120px 25px; /* Espaço para controles embaixo */
-        justify-content: flex-start; /* Alinhar ao topo para permitir scroll */
+        justify-content: flex-start !important; /* IMPORTANTE: Previne corte no topo */
         overflow-y: auto; /* Scroll vertical */
         height: 100dvh;
         -webkit-overflow-scrolling: touch;
+        display: flex;
+        flex-direction: column;
     }
     
     /* CORREÇÃO DAS PÁGINAS FINAIS (11 e 12) */
     .slide#slide12, .slide#slide11 {
-        justify-content: center; /* Tenta centralizar */
         text-align: center;
-        display: flex;
-        flex-direction: column;
+        /* Não usar justify-content: center aqui */
     }
     
     /* Centralização segura com margens automáticas para conteúdo interno */
     .slide#slide11 > div, .slide#slide12 > div {
         margin-top: auto;
         margin-bottom: auto;
+        width: 100%;
     }
 
     /* Tipografia Mobile */
@@ -412,12 +412,14 @@ ul.check-list li::before {
         order: 2; 
         width: 100%; 
         height: auto;
-        max-height: 350px; /* Mais altura */
-        aspect-ratio: 16/9; /* Proporção padrão para não cortar demais */
+        /* Remover max-height fixo e usar aspect ratio */
+        max-height: none; 
+        aspect-ratio: 16/9;
+        flex-shrink: 0;
     }
     
     .img-frame img {
-        object-fit: cover; /* Mantém cover, mas o container agora é 16:9 */
+        object-fit: cover;
     }
 
     /* Cards Mobile */
@@ -512,16 +514,17 @@ ul.check-list li::before {
         margin-bottom: 0;
     }
 
-    /* Barra de Navegação Fixa Inferior - CORRIGIDA */
+    /* Barra de Navegação Fixa Inferior - REVISADA */
     .nav-controls {
         position: fixed;
         bottom: 0;
         left: 0;
-        width: 100%;
+        right: 0; /* Garante que ocupe a largura toda */
+        width: 100%; /* Fallback */
         background: rgba(11, 17, 32, 0.95);
         backdrop-filter: blur(10px);
         padding: 15px 30px;
-        padding-bottom: calc(15px + env(safe-area-inset-bottom)); /* Proteção iPhone */
+        padding-bottom: calc(15px + env(safe-area-inset-bottom));
         justify-content: space-between;
         align-items: center;
         border-top: 1px solid rgba(255,255,255,0.1);
